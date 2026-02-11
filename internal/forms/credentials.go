@@ -2,7 +2,7 @@ package forms
 
 import (
 	"errors"
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/credentials"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/credentials"
 	"github.com/charmbracelet/huh"
 	"github.com/rs/zerolog/log"
 )

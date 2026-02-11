@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/cmd"
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/core"
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/credentials"
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/forms"
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/pocketbase_api"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/cmd"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/core"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/credentials"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/forms"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/pocketbase_api"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"

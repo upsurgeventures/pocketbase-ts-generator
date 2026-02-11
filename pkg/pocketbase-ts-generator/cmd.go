@@ -1,7 +1,7 @@
 package pocketbase_ts_generator
 
 import (
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/cmd"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/cmd"
 	"github.com/pocketbase/pocketbase"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"

@@ -1,8 +1,8 @@
 package interpreter
 
 import (
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/generator"
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/pocketbase_api"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/generator"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/pocketbase_api"
 )
 
 func InterpretCollections(collections []*pocketbase_api.Collection, allCollections []pocketbase_api.Collection) []*generator.CollectionWithProperties {

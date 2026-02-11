@@ -13,7 +13,7 @@ builds:
     main: ./cmd/pocketbase-ts-generator
     binary: pocketbase-ts-generator
     ldflags:
-      - -s -w -X github.com/Vogeslu/pocketbase-ts-generator.Version={{ .Version }}
+      - -s -w -X github.com/upsurgeventures/pocketbase-ts-generator.Version={{ .Version }}
     env:
       - CGO_ENABLED=0
     goos:

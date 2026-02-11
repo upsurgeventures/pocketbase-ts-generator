@@ -1,11 +1,11 @@
 package pocketbase_ts_generator
 
 import (
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/cmd"
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/core"
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/forms"
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/pocketbase_api"
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/pocketbase_core"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/cmd"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/core"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/forms"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/pocketbase_api"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/pocketbase_core"
 	"github.com/pocketbase/pocketbase"
 )
 

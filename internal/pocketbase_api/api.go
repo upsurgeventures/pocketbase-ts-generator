@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/credentials"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/credentials"
 	"github.com/rs/zerolog/log"
 	"io"
 	"net/http"

@@ -1,7 +1,7 @@
 package pocketbase_core
 
 import (
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/pocketbase_api"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/pocketbase_api"
 	"github.com/pocketbase/pocketbase"
 )
 

@@ -1,8 +1,8 @@
 package forms
 
 import (
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/cmd"
-	"github.com/Vogeslu/pocketbase-ts-generator/internal/pocketbase_api"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/cmd"
+	"github.com/upsurgeventures/pocketbase-ts-generator/internal/pocketbase_api"
 	"github.com/charmbracelet/huh"
 	"github.com/rs/zerolog/log"
 	"sort"
