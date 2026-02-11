@@ -22,6 +22,8 @@ type GeneratorFlags struct {
 
 	// Extra flags
 	MakeNonRequiredOptional bool
+	IndentSize             int
+	UseInterface           bool
 }
 
 func GetGenerateTsCommand(fromPocketBase bool, callback func(cmd *cobra.Command, args []string, generatorFlags *GeneratorFlags)) *cobra.Command {
@@ -54,6 +56,8 @@ func GetGenerateTsCommand(fromPocketBase bool, callback func(cmd *cobra.Command,
 	rootCmd.PersistentFlags().StringVarP(&generatorFlags.Output, "output", "o", "", "Output file path")
 
 	rootCmd.PersistentFlags().BoolVar(&generatorFlags.MakeNonRequiredOptional, "non-required-optional", false, "Make non required fields optional properties (with question mark)")
+	rootCmd.PersistentFlags().IntVar(&generatorFlags.IndentSize, "indent-size", 2, "Number of spaces for indentation (default 2)")
+	rootCmd.PersistentFlags().BoolVar(&generatorFlags.UseInterface, "use-interface", false, "Use 'interface' instead of 'type' for TypeScript definitions")
 
 	return rootCmd
 }

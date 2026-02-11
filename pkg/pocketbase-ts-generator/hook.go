@@ -12,15 +12,25 @@ type GeneratorOptions struct {
 	CollectionsExclude []string
 
 	Output string
+
+	IndentSize int
+	UseInterface bool
 }
 
 func RegisterHook(app *pocketbase.PocketBase, options *GeneratorOptions) {
+	indentSize := options.IndentSize
+	if indentSize == 0 {
+		indentSize = 2
+	}
+
 	generatorFlags := &cmd.GeneratorFlags{
 		AllCollections:     options.AllCollections,
 		CollectionsInclude: options.CollectionsInclude,
 		CollectionsExclude: options.CollectionsExclude,
 
-		Output: options.Output,
+		Output:     options.Output,
+		IndentSize: indentSize,
+		UseInterface: options.UseInterface,
 	}
 
 	app.OnCollectionAfterCreateSuccess().BindFunc(func(e *pbcore.CollectionEvent) error {

@@ -9,6 +9,10 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
+func indent(flags *cmd.GeneratorFlags) string {
+	return strings.Repeat(" ", flags.IndentSize)
+}
+
 type InterfacePropertyType int
 
 const (
@@ -175,34 +179,42 @@ func (property InterfaceProperty) getTypescriptName(generatorFlags *cmd.Generato
 }
 
 func (collection CollectionWithProperties) GetTypescriptInterface(generatorFlags *cmd.GeneratorFlags) string {
+	ind := indent(generatorFlags)
 	properties := make([]string, len(collection.Properties))
 	var additionalTypes []string
 	var expandedRelations []string
 
 	for i, property := range collection.Properties {
-		properties[i] = fmt.Sprintf("    %s;", property.GetTypescriptProperty(generatorFlags, propertyFlags{forceOptional: false, relationAsString: true}))
+		properties[i] = fmt.Sprintf("%s%s;", ind, property.GetTypescriptProperty(generatorFlags, propertyFlags{forceOptional: false, relationAsString: true}))
 
 		if property.Type == IptEnum {
-			additionalTypes = append(additionalTypes, property.getTypescriptEnum())
+			additionalTypes = append(additionalTypes, property.getTypescriptEnum(generatorFlags))
 		}
 
 		if property.Type == IptRelation {
-			expandedRelations = append(expandedRelations, fmt.Sprintf("    %s;", property.GetTypescriptProperty(generatorFlags, propertyFlags{forceOptional: true, relationAsString: false})))
+			expandedRelations = append(expandedRelations, fmt.Sprintf("%s%s;", ind, property.GetTypescriptProperty(generatorFlags, propertyFlags{forceOptional: true, relationAsString: false})))
 		}
 	}
 
-	if len(expandedRelations) > 0 {
-		expandedRelations = append(expandedRelations, "    [key: string]: unknown;")
+	keyword := "type"
+	assign := " = {"
+	if generatorFlags.UseInterface {
+		keyword = "interface"
+		assign = " {"
+	}
 
-		expandedType := fmt.Sprintf("export interface %sExpanded {\n%s\n}", strcase.ToCamel(collection.Collection.Name), strings.Join(expandedRelations, "\n"))
+	if len(expandedRelations) > 0 {
+		expandedRelations = append(expandedRelations, fmt.Sprintf("%s[key: string]: unknown;", ind))
+
+		expandedType := fmt.Sprintf("export %s %sExpanded%s\n%s\n}", keyword, strcase.ToCamel(collection.Collection.Name), assign, strings.Join(expandedRelations, "\n"))
 
 		additionalTypes = append(additionalTypes, expandedType)
 
-		expandedLine := fmt.Sprintf("    expand?: %sExpanded;", strcase.ToCamel(collection.Collection.Name))
+		expandedLine := fmt.Sprintf("%sexpand?: %sExpanded;", ind, strcase.ToCamel(collection.Collection.Name))
 
 		properties = append([]string{expandedLine}, properties...)
 	} else {
-		expandedLine := "    expand?: { [key: string]: unknown; };"
+		expandedLine := fmt.Sprintf("%sexpand?: { [key: string]: unknown; };", ind)
 
 		properties = append([]string{expandedLine}, properties...)
 	}
@@ -213,21 +225,22 @@ func (collection CollectionWithProperties) GetTypescriptInterface(generatorFlags
 		prefix += "\n\n"
 	}
 
-	return fmt.Sprintf("%sexport interface %s {\n%s\n}", prefix, strcase.ToCamel(collection.Collection.Name), strings.Join(properties, "\n"))
+	return fmt.Sprintf("%sexport %s %s%s\n%s\n}", prefix, keyword, strcase.ToCamel(collection.Collection.Name), assign, strings.Join(properties, "\n"))
 }
 
-func (property InterfaceProperty) getTypescriptEnum() string {
+func (property InterfaceProperty) getTypescriptEnum(generatorFlags *cmd.GeneratorFlags) string {
 	if property.Type != IptEnum {
 		return ""
 	}
 
+	ind := indent(generatorFlags)
 	enumData := property.Data.([]string)
 	enumName := strcase.ToCamel(fmt.Sprintf("%s_%s_%s", property.CollectionName, property.Name, "options"))
 
 	enumList := make([]string, len(enumData))
 
 	for i, enum := range enumData {
-		enumList[i] = fmt.Sprintf("    %s = \"%s\"", strcase.ToCamel(enum), enum)
+		enumList[i] = fmt.Sprintf("%s%s = \"%s\"", ind, strcase.ToCamel(enum), enum)
 	}
 
 	return fmt.Sprintf("export enum %s {\n%s\n}", enumName, strings.Join(enumList, ",\n"))
